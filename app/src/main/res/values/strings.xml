@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Android-OCR</string>
-    <string name="title_activity_main">Anasayfa</string>
+    <string name="app_name">Fatura Takip</string>
     <string name="title_activity_fatura_ekle">Fatura Ekle</string>
 
     <string-array name="SpinnerData">
@@ -8,4 +7,10 @@
         <item>Elektrik</item>
         <item>Su</item>
     </string-array>
+    <string name="title_activity_main">Anasayfa</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

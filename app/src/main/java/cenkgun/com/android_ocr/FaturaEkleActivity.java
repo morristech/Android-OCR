@@ -1,6 +1,7 @@
 package cenkgun.com.android_ocr;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -110,6 +111,8 @@ public class FaturaEkleActivity extends AppCompatActivity {
                 Fatura fatura = new Fatura(faturatipi,"konum",baslangictarihi,baslik);
 
                 Tools.faturas.add(fatura);
+
+                finish();
 
                 return true;
 

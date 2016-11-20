@@ -7,10 +7,10 @@ public class Fatura {
 
     private String faturaTipi;
     private String konum;
-    private Object baslangicTarihi;
+    private String baslangicTarihi;
     private String baslik;
 
-    public Fatura(String faturaTipi, String konum, Object baslangicTarihi, String baslik) {
+    public Fatura(String faturaTipi, String konum, String baslangicTarihi, String baslik) {
         this.faturaTipi = faturaTipi;
         this.konum = konum;
         this.baslangicTarihi = baslangicTarihi;
@@ -33,19 +33,19 @@ public class Fatura {
         this.konum = konum;
     }
 
-    public Object getBaslangicTarihi() {
-        return baslangicTarihi;
-    }
-
-    public void setBaslangicTarihi(Object baslangicTarihi) {
-        this.baslangicTarihi = baslangicTarihi;
-    }
-
     public String getBaslik() {
         return baslik;
     }
 
     public void setBaslik(String baslik) {
         this.baslik = baslik;
+    }
+
+    public String getBaslangicTarihi() {
+        return baslangicTarihi;
+    }
+
+    public void setBaslangicTarihi(String baslangicTarihi) {
+        this.baslangicTarihi = baslangicTarihi;
     }
 }
