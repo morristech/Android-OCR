@@ -116,4 +116,9 @@
         </LinearLayout>
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/kamera"
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+
 </LinearLayout>

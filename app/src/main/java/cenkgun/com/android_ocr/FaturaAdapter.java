@@ -1,10 +1,14 @@
 package cenkgun.com.android_ocr;
 
+import android.app.Application;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -24,10 +28,18 @@ public class FaturaAdapter extends RecyclerView.Adapter<FaturaAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int i) {
 
         viewHolder.tv_baslik.setText(mFatura.get(i).getBaslik());
         viewHolder.tv_baslangictarihi.setText(mFatura.get(i).getBaslangicTarihi());
+
+        viewHolder.tv_detay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d("uyarı" ," i = "+ i + " ");
+            }
+        });
 
 
     }

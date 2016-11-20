@@ -2,6 +2,9 @@ package cenkgun.com.android_ocr;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,8 +14,19 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.googlecode.tesseract.android.TessBaseAPI;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Calendar;
 
 import cenkgun.com.android_ocr.Model.Fatura;
@@ -24,6 +38,11 @@ public class FaturaEkleActivity extends AppCompatActivity {
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
+    private static final int CAMERA_PIC_REQUEST = 22;
+
+
+    private ImageView ImgPhoto;
+
 
     EditText et_baslik ;
     EditText et_baslangicTarihi;
@@ -33,6 +52,12 @@ public class FaturaEkleActivity extends AppCompatActivity {
     ImageButton img_tara;
 
     Spinner spinner;
+
+    Bitmap image;
+    private TessBaseAPI mTess;
+    String datapath = "";
+
+    Bitmap photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +72,9 @@ public class FaturaEkleActivity extends AppCompatActivity {
         img_tara = (ImageButton) findViewById(R.id.img_faturaekle_tara);
         spinner = (Spinner) findViewById(R.id.spinner);
 
+        ImgPhoto = (ImageView) findViewById(R.id.kamera);
+
+
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -54,6 +82,12 @@ public class FaturaEkleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                try {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Couldn't load photo", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -120,4 +154,100 @@ public class FaturaEkleActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        try {
+            switch (requestCode) {
+                case CAMERA_PIC_REQUEST:
+                    if (resultCode == RESULT_OK) {
+                        try {
+                            photo = (Bitmap) data.getExtras().get("data");
+
+                            ImgPhoto.setImageBitmap(photo);
+
+                        } catch (Exception e) {
+                            Toast.makeText(this, "Couldn't load photo", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            OcrInit();
+
+
+
+        } catch (Exception e) {
+        }
+
+    }
+
+    private void OcrInit() {
+        //init image
+        //image = BitmapFactory.decodeResource(getResources(), R.id.kamera);
+
+        //initialize Tesseract API
+        String language = "eng";
+        datapath = getFilesDir()+ "/tesseract/";
+        mTess = new TessBaseAPI();
+
+        checkFile(new File(datapath + "tessdata/"));
+
+        mTess.init(datapath, language);
+    }
+
+    public void processImage(View view){
+        String OCRresult = null;
+        mTess.setImage(photo);
+        OCRresult = mTess.getUTF8Text();
+        et_okunanDeger.setText(OCRresult);
+    }
+
+    private void checkFile(File dir) {
+        if (!dir.exists()&& dir.mkdirs()){
+            copyFiles();
+        }
+        if(dir.exists()) {
+            String datafilepath = datapath+ "/tessdata/eng.traineddata";
+            File datafile = new File(datafilepath);
+
+            if (!datafile.exists()) {
+                copyFiles();
+            }
+        }
+    }
+
+    private void copyFiles() {
+        try {
+            String filepath = datapath + "/tessdata/eng.traineddata";
+            AssetManager assetManager = getAssets();
+
+            InputStream instream = assetManager.open("tessdata/eng.traineddata");
+            OutputStream outstream = new FileOutputStream(filepath);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = instream.read(buffer)) != -1) {
+                outstream.write(buffer, 0, read);
+            }
+
+
+            outstream.flush();
+            outstream.close();
+            instream.close();
+
+            File file = new File(filepath);
+            if (!file.exists()) {
+                throw new FileNotFoundException();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

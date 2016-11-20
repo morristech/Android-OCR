@@ -1,6 +1,7 @@
 package cenkgun.com.android_ocr;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ArrayList data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,8 +133,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.action_ayarlar) {
             return true;
         } else if (id == R.id.action_yenile) {
-            Toast.makeText(this, "SELAMUN ALEYKUM", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MainActivity.this, MainActivity.class));
+            Toast.makeText(this, "Faturalar güncellendi...", Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -163,5 +164,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
 
