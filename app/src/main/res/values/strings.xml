@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Android-OCR</string>
+    <string name="title_activity_main">Anasayfa</string>
+    <string name="title_activity_fatura_ekle">Fatura Ekle</string>
+
+    <string-array name="SpinnerData">
+        <item>Doğalgaz</item>
+        <item>Elektrik</item>
+        <item>Su</item>
+    </string-array>
 </resources>

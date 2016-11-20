@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:uygulamaismi="http://schemas.android.com/apk/res-auto" >
+    <item android:id="@+id/action_yenile"
+        android:icon="@drawable/ic_autorenew_white_24dp"
+        android:title="Yenile"
+        uygulamaismi:showAsAction="ifRoom"  />
+
+    <item android:id="@+id/action_ayarlar"
+        android:title="Ayarlar"/>
+</menu>
