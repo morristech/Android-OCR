@@ -75,7 +75,7 @@ public class FaturaEkleActivity extends AppCompatActivity {
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
 
-                                et_baslangicTarihi.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                et_baslangicTarihi.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
 
                             }
                         }, mYear, mMonth, mDay);
