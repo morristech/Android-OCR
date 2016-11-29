@@ -4,21 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/card"
-    card_view:cardElevation="@dimen/cardview_default_elevation"
-    android:layout_marginTop="5dp"
+    card_view:cardElevation="5dp"
     android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    card_view:cardCornerRadius="5dp">
+    android:layout_marginRight="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#EDEDED"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="5dp"
             android:layout_height="match_parent"
-            android:background="@android:color/holo_green_dark"></LinearLayout>
+            android:layout_margin="8dp"
+            android:background="#0A2342"></LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,21 +28,61 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:textColor="@android:color/black"
                 android:text="Fatura Tipi"
-                android:id="@+id/tv_fatura_baslik" />
+                android:id="@+id/tv_fatura_baslik"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="Başlangıç Tarihi : 13.10.1994"
-                android:id="@+id/tv_fatura_tarih" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Başlangıç Tarihi = "
+                     />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="13sp"
+                    android:text=""
+                    android:id="@+id/tv_fatura_tarih" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Okunan Değer = "
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="13sp"
+                    android:text=""
+                    android:id="@+id/tv_fatura_okunandeger" />
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,8 +95,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="18sp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="7dp"
                     android:text="DETAY"
                     android:textColor="@android:color/holo_blue_dark"
                     android:id="@+id/tv_fatura_detay" />
@@ -66,8 +106,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="18sp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="7dp"
                     android:text="DÜZENLE"
                     android:textColor="@android:color/holo_blue_dark"
                     android:id="@+id/tv_fatura_duzenle" />
@@ -77,11 +117,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_margin="10dp"
             android:background="@android:color/darker_gray"
-            android:layout_weight="3">
+            >
 
         </LinearLayout>
     </LinearLayout>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import cenkgun.com.android_ocr.Model.Fatura;
+import cenkgun.com.android_ocr.Tools.Tools;
 
 public class FaturaAdapter extends RecyclerView.Adapter<FaturaAdapter.ViewHolder> {
     private ArrayList<Fatura> mFatura;
@@ -32,12 +33,13 @@ public class FaturaAdapter extends RecyclerView.Adapter<FaturaAdapter.ViewHolder
 
         viewHolder.tv_baslik.setText(mFatura.get(i).getBaslik());
         viewHolder.tv_baslangictarihi.setText(mFatura.get(i).getBaslangicTarihi());
+        viewHolder.tv_okunandeger.setText(mFatura.get(i).getOkunandeger());
 
         viewHolder.tv_detay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.d("uyarı" ," i = "+ i + " ");
+                Toast.makeText(Tools.ApplicationContext,"Detay ekranı şuan bakımda... Position="+ i, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -53,6 +55,7 @@ public class FaturaAdapter extends RecyclerView.Adapter<FaturaAdapter.ViewHolder
         private TextView tv_baslik;
         private TextView tv_baslangictarihi;
         private TextView tv_detay;
+        private TextView tv_okunandeger;
         private TextView tv_duzenle;
 
 
@@ -63,6 +66,7 @@ public class FaturaAdapter extends RecyclerView.Adapter<FaturaAdapter.ViewHolder
             tv_baslangictarihi = (TextView) view.findViewById(R.id.tv_fatura_tarih);
             tv_detay = (TextView) view.findViewById(R.id.tv_fatura_detay);
             tv_duzenle = (TextView) view.findViewById(R.id.tv_fatura_duzenle);
+            tv_okunandeger = (TextView) view.findViewById(R.id.tv_fatura_okunandeger);
         }
     }
 

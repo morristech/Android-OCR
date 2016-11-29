@@ -10,11 +10,16 @@ public class Fatura {
     private String baslangicTarihi;
     private String baslik;
 
-    public Fatura(String faturaTipi, String konum, String baslangicTarihi, String baslik) {
+
+
+    private String okunandeger;
+
+    public Fatura(String faturaTipi, String konum, String baslangicTarihi, String baslik, String okunandeger) {
         this.faturaTipi = faturaTipi;
         this.konum = konum;
         this.baslangicTarihi = baslangicTarihi;
         this.baslik = baslik;
+        this.okunandeger = okunandeger;
     }
 
     public String getFaturaTipi() {
@@ -47,5 +52,12 @@ public class Fatura {
 
     public void setBaslangicTarihi(String baslangicTarihi) {
         this.baslangicTarihi = baslangicTarihi;
+    }
+    public String getOkunandeger() {
+        return okunandeger;
+    }
+
+    public void setOkunandeger(String okunandeger) {
+        this.okunandeger = okunandeger;
     }
 }

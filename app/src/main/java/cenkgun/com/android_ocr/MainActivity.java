@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Tools.ApplicationContext = getApplicationContext();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity
                 View child = rv.findChildViewUnder(e.getX(), e.getY());
                 if(child != null && gestureDetector.onTouchEvent(e)) {
                     int position = rv.getChildAdapterPosition(child);
-                    Toast.makeText(MainActivity.this, "position " + data.get(position), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "position " + data.get(position), Toast.LENGTH_SHORT).show();
                 }
 
                 return false;

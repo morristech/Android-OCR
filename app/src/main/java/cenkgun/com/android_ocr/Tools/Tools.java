@@ -1,5 +1,6 @@
 package cenkgun.com.android_ocr.Tools;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -19,4 +20,5 @@ public class Tools {
 
     public static ArrayList<Fatura> faturas = new ArrayList<Fatura>();
 
+    public static Context ApplicationContext;
 }

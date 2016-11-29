@@ -142,7 +142,7 @@ public class FaturaEkleActivity extends AppCompatActivity {
                 baslangictarihi = et_baslangicTarihi.getText().toString();
                 okunandeger = et_okunanDeger.getText().toString();
 
-                Fatura fatura = new Fatura(faturatipi,"konum",baslangictarihi,baslik);
+                Fatura fatura = new Fatura(faturatipi,"konum",baslangictarihi,baslik, okunandeger);
 
                 Tools.faturas.add(fatura);
 
@@ -176,8 +176,6 @@ public class FaturaEkleActivity extends AppCompatActivity {
                     break;
             }
 
-            OcrInit();
-
 
 
         } catch (Exception e) {
@@ -185,69 +183,6 @@ public class FaturaEkleActivity extends AppCompatActivity {
 
     }
 
-    private void OcrInit() {
-        //init image
-        //image = BitmapFactory.decodeResource(getResources(), R.id.kamera);
 
-        //initialize Tesseract API
-        String language = "eng";
-        datapath = getFilesDir()+ "/tesseract/";
-        mTess = new TessBaseAPI();
-
-        checkFile(new File(datapath + "tessdata/"));
-
-        mTess.init(datapath, language);
-    }
-
-    public void processImage(View view){
-        String OCRresult = null;
-        mTess.setImage(photo);
-        OCRresult = mTess.getUTF8Text();
-        et_okunanDeger.setText(OCRresult);
-    }
-
-    private void checkFile(File dir) {
-        if (!dir.exists()&& dir.mkdirs()){
-            copyFiles();
-        }
-        if(dir.exists()) {
-            String datafilepath = datapath+ "/tessdata/eng.traineddata";
-            File datafile = new File(datafilepath);
-
-            if (!datafile.exists()) {
-                copyFiles();
-            }
-        }
-    }
-
-    private void copyFiles() {
-        try {
-            String filepath = datapath + "/tessdata/eng.traineddata";
-            AssetManager assetManager = getAssets();
-
-            InputStream instream = assetManager.open("tessdata/eng.traineddata");
-            OutputStream outstream = new FileOutputStream(filepath);
-
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = instream.read(buffer)) != -1) {
-                outstream.write(buffer, 0, read);
-            }
-
-
-            outstream.flush();
-            outstream.close();
-            instream.close();
-
-            File file = new File(filepath);
-            if (!file.exists()) {
-                throw new FileNotFoundException();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
