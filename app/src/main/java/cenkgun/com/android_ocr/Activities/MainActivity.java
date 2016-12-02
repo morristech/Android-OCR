@@ -1,14 +1,11 @@
-package cenkgun.com.android_ocr;
+package cenkgun.com.android_ocr.Activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,16 +15,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 
 import java.util.ArrayList;
 
-import cenkgun.com.android_ocr.Model.Fatura;
+import cenkgun.com.android_ocr.FaturaAdapter;
+import cenkgun.com.android_ocr.R;
 import cenkgun.com.android_ocr.Tools.Tools;
+
+import static android.view.View.GONE;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -65,50 +64,69 @@ public class MainActivity extends AppCompatActivity
         initData();
     }
 
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(new Intent(MainActivity.this,MainActivity.class));
+    }
+
     private void initData() {
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
+
+        LinearLayout card = (LinearLayout) findViewById(R.id.card_yok);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
         data = Tools.faturas;
 
-        final RecyclerView.Adapter adapter = new FaturaAdapter(data);
-        recyclerView.setAdapter(adapter);
+        if (!data.isEmpty()) {
 
-        SwipeableRecyclerViewTouchListener swipeTouchListener =
-                new SwipeableRecyclerViewTouchListener(recyclerView,
-                        new SwipeableRecyclerViewTouchListener.SwipeListener() {
-                            @Override
-                            public boolean canSwipeLeft(int position) {
-                                return true;
-                            }
+            card.setVisibility(GONE);
 
-                            @Override
-                            public boolean canSwipeRight(int position) {
-                                return true;
-                            }
+            final RecyclerView.Adapter adapter = new FaturaAdapter(data);
+            recyclerView.setAdapter(adapter);
 
-                            @Override
-                            public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
-                                for (int position : reverseSortedPositions) {
-                                    data.remove(position);
-                                    adapter.notifyItemRemoved(position);
+            SwipeableRecyclerViewTouchListener swipeTouchListener =
+                    new SwipeableRecyclerViewTouchListener(recyclerView,
+                            new SwipeableRecyclerViewTouchListener.SwipeListener() {
+                                @Override
+                                public boolean canSwipeLeft(int position) {
+                                    return true;
                                 }
-                                adapter.notifyDataSetChanged();
-                            }
 
-                            @Override
-                            public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
-                                for (int position : reverseSortedPositions) {
-                                    data.remove(position);
-                                    adapter.notifyItemRemoved(position);
+                                @Override
+                                public boolean canSwipeRight(int position) {
+                                    return true;
                                 }
-                                adapter.notifyDataSetChanged();
-                            }
-                        });
 
-        recyclerView.addOnItemTouchListener(swipeTouchListener);
+                                @Override
+                                public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                                    for (int position : reverseSortedPositions) {
+                                        data.remove(position);
+                                        adapter.notifyItemRemoved(position);
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                                    for (int position : reverseSortedPositions) {
+                                        data.remove(position);
+                                        adapter.notifyItemRemoved(position);
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
+
+            recyclerView.addOnItemTouchListener(swipeTouchListener);
+        } else {
+            card.setVisibility(View.VISIBLE);
+        }
+
 
     }
 
@@ -142,6 +160,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.action_ayarlar) {
             return true;
         } else if (id == R.id.action_yenile) {
+
             Toast.makeText(this, "Faturalar güncellendi...", Toast.LENGTH_SHORT).show();
             return true;
         }

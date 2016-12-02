@@ -1,10 +1,8 @@
-package cenkgun.com.android_ocr;
+package cenkgun.com.android_ocr.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,20 +14,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Calendar;
 
 import cenkgun.com.android_ocr.Model.Fatura;
+import cenkgun.com.android_ocr.R;
 import cenkgun.com.android_ocr.Tools.Tools;
 
 public class FaturaEkleActivity extends AppCompatActivity {
