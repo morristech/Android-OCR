@@ -2,7 +2,9 @@ package cenkgun.com.android_ocr.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,10 +16,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Calendar;
 
 import cenkgun.com.android_ocr.Model.Fatura;
@@ -56,6 +65,14 @@ public class FaturaEkleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fatura_ekle);
 
+        String language = "eng";
+        datapath = getFilesDir()+ "/tesseract/";
+        mTess = new TessBaseAPI();
+
+        checkFile(new File(datapath + "tessdata/"));
+
+        mTess.init(datapath, language);
+
         et_baslik = (EditText) findViewById(R.id.et_faturaekle_baslik);
         et_baslangicTarihi = (EditText) findViewById(R.id.et_faturaekle_baslangictarihi);
         et_okunanDeger = (EditText) findViewById(R.id.et_faturaekle_okunandeger);
@@ -80,6 +97,7 @@ public class FaturaEkleActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Couldn't load photo", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 
@@ -159,6 +177,12 @@ public class FaturaEkleActivity extends AppCompatActivity {
 
                             ImgPhoto.setImageBitmap(photo);
 
+                            image = photo;
+
+                            processImage();
+
+
+
                         } catch (Exception e) {
                             Toast.makeText(this, "Couldn't load photo", Toast.LENGTH_LONG).show();
                         }
@@ -175,6 +199,59 @@ public class FaturaEkleActivity extends AppCompatActivity {
 
     }
 
+
+    public void processImage(){
+        String OCRresult = null;
+        mTess.setImage(image);
+        OCRresult = mTess.getUTF8Text();
+
+        et_okunanDeger.setText(OCRresult);
+
+    }
+
+    private void checkFile(File dir) {
+        if (!dir.exists()&& dir.mkdirs()){
+            copyFiles();
+        }
+        if(dir.exists()) {
+            String datafilepath = datapath+ "/tessdata/eng.traineddata";
+            File datafile = new File(datafilepath);
+
+            if (!datafile.exists()) {
+                copyFiles();
+            }
+        }
+    }
+
+    private void copyFiles() {
+        try {
+            String filepath = datapath + "/tessdata/eng.traineddata";
+            AssetManager assetManager = getAssets();
+
+            InputStream instream = assetManager.open("tessdata/eng.traineddata");
+            OutputStream outstream = new FileOutputStream(filepath);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = instream.read(buffer)) != -1) {
+                outstream.write(buffer, 0, read);
+            }
+
+
+            outstream.flush();
+            outstream.close();
+            instream.close();
+
+            File file = new File(filepath);
+            if (!file.exists()) {
+                throw new FileNotFoundException();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

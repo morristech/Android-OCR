@@ -111,6 +111,8 @@
                 android:id="@+id/img_faturaekle_tara"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:clickable="true"
+                android:onClick="processImage"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/ic_camera_black_24dp"/>
         </LinearLayout>
