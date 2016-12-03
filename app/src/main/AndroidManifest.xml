@@ -3,6 +3,7 @@
     package="cenkgun.com.android_ocr">
 
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -21,11 +22,13 @@
         <activity
             android:name=".Activities.FaturaEkleActivity"
             android:label="@string/title_activity_fatura_ekle" />
-
         <activity
             android:name=".Activities.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>

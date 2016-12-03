@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_ayarlar) {
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             return true;
         } else if (id == R.id.action_yenile) {
 
